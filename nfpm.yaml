@@ -1,12 +1,12 @@
 name: "pve-fake-subscription"
 arch: "all"
 platform: "linux"
-version: "0.0.10"
+version: "0.0.9"
 version_schema: "semver"
-version_metadata: "git"
+#version_metadata: "git"
 
 epoch: 0
-release: 1
+#release: 1
 section: "admin"
 priority: "optinal"
 
