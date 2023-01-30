@@ -12,7 +12,7 @@ Works for:
 
 - Proxmox VE (5.x or later, tested up to 7.2)
 - Proxmox Mail Gateway (5.x or later)
-- Proxmox Backup Server (1.x)
+- Proxmox Backup Server (1.x or later, tested up to 2.3.2)
 
 Highlights:
 
@@ -22,11 +22,20 @@ Highlights:
 - Comes with standard Debian package, easy to manage and automate
 - **No JavaScript is involved** in the whole process, as I believe JavaScript is harmful to developers
 
+## Changes I've made in this fork
+
+- updated package building instructions
+- changed links to point to this repository instead of the [original](https://github.com/Jamesits/pve-fake-subscription) one
+- changed the product name to "Proxmox Fake Subscription" (shows up in the web interface and the shell)
+
 ## Installation / Usage
 
-1. [Download the latest release](https://github.com/Jamesits/pve-fake-subscription/releases/latest)
-1. Install: run `dpkg -i pve-fake-subscription_*.deb` as root on every node
-1. (Optional) `echo "127.0.0.1 shop.maurer-it.com" | sudo tee -a /etc/hosts` to prevent fake keys from being checked against the Proxmox servers
+1. [Download the latest release](https://github.com/quiknick/pve-fake-subscription/releases/latest)
+> `wget https://github.com/quiknick/pve-fake-subscription/releases/latest/pve-fake-subscription_0.0.10_all.deb`
+2. Install the package as root on every node
+> `dpkg -i pve-fake-subscription_*.deb`
+3. (Optional) Prevent fake keys from being checked against the Proxmox servers
+> `echo "127.0.0.1 shop.maurer-it.com" | sudo tee -a /etc/hosts`
 
 Notes:
 
@@ -52,6 +61,18 @@ This will revert your system to a "no subscription key" status.
 
 Install [nFPM](https://nfpm.goreleaser.com/install/), then:
 
-```shell
+```bash
+echo 'deb [trusted=yes] https://repo.goreleaser.com/apt/ /' | sudo tee /etc/apt/sources.list.d/goreleaser.list
+sudo apt update
+sudo apt-get install build-essential git nfpm
+git clone https://github.com/quiknick/pve-fake-subscription.git
+cd pve-fake-subscription
+```
+
+(Optional) Change the name of the subscription
+
+`sed -i.bak 's/Proxmox Fake Subscription/<new name>/' usr/bin/pve-fake-subscription`
+
+```bash
 ./package.sh
 ```
